@@ -9,7 +9,7 @@ $parent_id=wp_create_category("Marques auto");
 if($parent_id){
 	echo "Categorie Marques auto est créé <br>";
 }else{
-	echo "Categorie Marques auto n'est pas créé <br>";
+	echo "Categorie Marques auto n'est pas créée <br>";
 }
 /******************************/	
 
@@ -42,19 +42,19 @@ unset($brand_model["MARQUE"]);
 //creation des categories et sous categories
 foreach ($brand_model as $brand=>$model) {
 	//les marques de voitures
-	$brand_id=wp_create_category(preg_replace('/[^A-Za-z0-9\-]/', ' ', $brand),$parent_id);
+	$brand_id=wp_create_category($brand,$parent_id);
 	
 	/**test de création des marques**/
 	if($brand_id){
 		echo "Marque ".$brand." est créé <br>";
 	}else{
-		echo "Marque ".$brand." n'est pas créé <br>";
+		echo "Marque ".$brand." n'est pas créée <br>";
 	}
 	/******************************/
 
 	for ($i=0; $i < count($model) ; $i++) {
 		//les modeles de voitures
-		$model_id=wp_create_category(preg_replace('/[^A-Za-z0-9\-]/', ' ',$model[$i]),$brand_id);
+		$model_id=wp_create_category($model[$i],$brand_id);
 
 		/**test de creation des modeles**/
 		if($brand_id){
