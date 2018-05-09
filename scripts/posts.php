@@ -1,36 +1,42 @@
 <?php
-require_once("../wp-load.php");
-require_once("../wp-admin/includes/taxonomy.php");
+//les fichiers de wordpress
+include 'load.php';
 
-//recuperation des categories
+//id de la categorie Marques auto
+$parent_id=get_cat_ID("Marques auto");
 
-$args = array("hide_empty" => 0);
+//recuperation des categories filles de Marques auto
+$args = array("hide_empty"=>0,"child_of"=>$parent_id);
 $categories = get_categories($args);
 
 //creation d'un article par modele
-foreach ( $categories as $category ) {
+foreach ($categories as $category) {
 
-	//eleminer la categorie "Marques auto" et ses filles 'marque'
+	//elemination des marques
 	 
-	if(get_category(get_category($category->parent)->parent)->name == "Marques auto"){
+	if(isset($category) && $category->parent != $parent_id ){
+
+		//extraction des informations
+		$model_name=$category->name;
+		$model_id=$category->cat_ID;
+		$marque_name=get_category($category->parent)->name;
+		$marque_id=$category->parent;
 
 		//creation des aticles
 		$new_post = array(
-		  'post_title' => "Article sur ".get_category($category->parent)->name." modele ".$category->name,
-	   	  'post_content' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-		  'post_status' => "publish",
-		  'post_author' => 1,
-		  'post_type' => "post",
-		  'post_category' => array($category->cat_ID,$category->parent)
+			'post_title'    => "Article sur ".$marque_name." modele ".$model_name,
+	   	 	'post_content'  => "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+		 	'post_status'   => "publish",
+		 	'post_category' => array($model_id,$marque_id)
 		);
 		 
 		$post_id = wp_insert_post($new_post);
 
 		/**** test de creation ***/
-		if($brand_id){
-			echo "Article sur".$category->name." est créé <br>";
+		if($post_id){
+			echo "Article sur ".$model_name." est créé <br>";
 		}else{
-			echo "Article sur ".$category->name." n'est pas créé <br>";
+			echo "Article sur ".$model_name." n'est pas créé <br>";
 		}
 		/*************************/
 	}
