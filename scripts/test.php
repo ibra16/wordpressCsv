@@ -1,17 +1,18 @@
 <?php
 
-require_once("../wp-load.php");
-require_once("../wp-admin/includes/taxonomy.php");
+//les fichiers de wordpress
+include 'load.php';
 
-$brand_model=array();
+/*$brand_model=array();
 $index=0;
 if (($file = fopen("csv_marque_Modele_290318.csv", "r"))) {
+	fgetcsv($file);
     while (($data = fgetcsv($file,288, ";"))) {
     	$row[]=$data;
         if(!empty($data[0]) && !empty($data[1])){
         	if($row[$index][0] != $row[$index-1][0]){
 				$model=array();
-				$model[]=$row[$index][1];
+				$model[]=$data[1];
 			}
         	if (array_key_exists($data[0],$brand_model)){
         		$model[]=$data[1];
@@ -21,8 +22,6 @@ if (($file = fopen("csv_marque_Modele_290318.csv", "r"))) {
     	$index++;
      }
 }
-//$brands=array_unique($all_brands);
-unset($brand_model["MARQUE"]);
 
 foreach ($brand_model as $brand=>$model) {
 	echo "brand : ".$brand;
@@ -32,13 +31,16 @@ foreach ($brand_model as $brand=>$model) {
 		echo "<br>";
 	}
 }
+/********* cat id ************/
+$parent_id=get_cat_ID("Marques auto");
 
-/********* cat id ************
-$args = array("hide_empty" => 0);
+$args = array("hide_empty"=>0,"child_of"=>$parent_id);
 $categories = get_categories($args);
 foreach ( $categories as $category ) {
-	if(get_category(get_category($category->parent)->parent)->name == "Marques auto"){
-		echo get_category(get_category($category->parent)->parent)->name.'<br>';
+	if(isset($category) && $category->parent != $parent_id ){
+		echo $category->name." ".get_category($category->parent)->name;
+		echo "<br>";
 	}
 }
-******************************/
+/******************************/
+//echo get_permalink(1180);
