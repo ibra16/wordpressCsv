@@ -66,9 +66,9 @@ function create_categories($name,$parent){
 
 		echo "Categorie ".$name." n'est pas créée <br>";
 
+
 	}
 
 	return $categorie_id;
 }
-
 ?>

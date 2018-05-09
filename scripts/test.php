@@ -3,7 +3,7 @@
 //les fichiers de wordpress
 include 'load.php';
 
-/*$brand_model=array();
+$brand_model=array();
 $index=0;
 if (($file = fopen("csv_marque_Modele_290318.csv", "r"))) {
 	fgetcsv($file);
@@ -31,6 +31,7 @@ foreach ($brand_model as $brand=>$model) {
 		echo "<br>";
 	}
 }
+
 /********* cat id ************/
 $parent_id=get_cat_ID("Marques auto");
 
