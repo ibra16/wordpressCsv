@@ -2,6 +2,8 @@
 
 	get_header();
 
+	get_sidebar();
+
 ?>
 <div class="wrap">
 	<div id="primary" class="content-area">

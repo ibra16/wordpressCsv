@@ -7,19 +7,20 @@
 
 		<h3><?php echo $title ?></h3>
 
-		<?php query_posts( "category_name=$category_name&showposts=4" ); ?>
+		<?php $wp_query = new WP_Query( "category_name=$category_name&showposts=4" ); ?>
 		
-		<ul style='list-style-type:none;line-height: 3;margin-left:40px'>
+		<ul class="most-popular">
 			<?php 
-			if (have_posts()) :
-				while (have_posts()) : the_post();
+			if ($wp_query->have_posts()) :
+				while ( $wp_query->have_posts() ) : $wp_query->the_post();
 			?>
 					<li>
-						<a href="<?php the_permalink();?>"><?php the_title(); ?></a>
+						<a href="<?php the_permalink();?>"><?php echo get_the_title(); ?></a>
 					</li>	
 			<?php
 				endwhile;        
 			endif;
+			wp_reset_postdata();
 			?>
 		</ul>
 <?php } ?>	
@@ -33,6 +34,6 @@
 			'prev_text' => ( '&laquo;' ),
 			'next_text' => ( '&raquo;' ),
 		); 
-		echo paginate_links($args); 
+		echo paginate_links($args);
 	?>
 </div>

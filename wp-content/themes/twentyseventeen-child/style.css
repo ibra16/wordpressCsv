@@ -2,3 +2,8 @@
 Theme Name: Twenty seven teen child
 Template: twentyseventeen
 */
+.most-popular{
+	list-style-type : none;
+	line-height     : 2.5;
+	margin-left     : 20px;
+}
